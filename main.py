@@ -5,6 +5,7 @@ import os
 
 from wx.core import ID_ANY
 import backend
+import convertimage
 
 class BlueFileDropTarget(wx.FileDropTarget):
     def __init__(self, window):
@@ -81,8 +82,10 @@ class App(wx.Frame):
         self.SetStatusText('実行中')
         blue_path = self.blue_entry.GetValue()
         red_path = self.red_entry.GetValue()
+        image_blue_path = convertimage.main(blue_path)
+        image_red_path  = convertimage.main(red_path)
         filename = os.path.basename(red_path)
-        backend.main(red_path, blue_path, filename, self.radio_outputmode.GetSelection())
+        backend.main(image_red_path, image_blue_path, filename, self.radio_outputmode.GetSelection())
         self.SetStatusText('')
 
 app = wx.App()
